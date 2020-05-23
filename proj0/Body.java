@@ -40,10 +40,17 @@ public class Body {
 	}
 
 
-	public double calcDistance(Body body2) {
-		double dx = this.xxPos - body2.xxPos;
-		double dy = this.yyPos - body2.yyPos;
+	public double calcDistance(Body b) {
+		double dx = this.xxPos - b.xxPos;
+		double dy = this.yyPos - b.yyPos;
 		double r = Math.sqrt(dx * dx + dy * dy);
 		return r;
 	}
+
+
+	public double calcForceExertedBy(Body b) {
+		double r = this.calcDistance(b);
+		double tf = (6.67e-11) * this.mass * b.mass / (r*r);
+		return tf;
+	} 
 }

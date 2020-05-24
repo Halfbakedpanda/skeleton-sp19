@@ -53,4 +53,60 @@ public class Body {
 		double tf = (6.67e-11) * this.mass * b.mass / (r*r);
 		return tf;
 	} 
+
+	public double calcNetForceExertedByX(Body[] allBodys) {
+		double res = 0;
+		for (Body planet: allBodys){
+			if (this.equals(planet)) {
+				continue;
+			} else{
+				double dx = planet.xxPos - this.xxPos;
+				double r = this.calcDistance(planet);
+				double tf = this.calcForceExertedBy(planet);
+				double xf = tf*dx/r;
+				res += xf;
+			}
+		}
+		return res;
+	}
+
+
+	public double calcNetForceExertedByY(Body[] allBodys) {
+		double res = 0;
+		for (Body planet: allBodys){
+			if (this.equals(planet)) {
+				continue;
+			} else{
+				double dy = planet.yyPos - this.xxPos;
+				double r = this.calcDistance(planet);
+				double tf = this.calcForceExertedBy(planet);
+				double yf = tf*dy/r;
+				res += yf;
+			}
+		}
+		return res;
+	}
+
+
+	public void update(double dt, double fX, double fY) {
+		double ax = fX/this.mass;
+		double ay = fY/this.mass;
+		xxVel += dt*ax;
+		yyVel += dt*ay;
+		xxPos += dt*xxVel;
+		yyPos += dt*yyVel;
+	}
+
+
+	/**
+	public static void main(String[] args){
+		Body samh = new Body(1, 0, 0, 0, 10, "samh.gif");
+		Body rocinante = new Body(5, -3, 0, 0, 50, "Rocinante.gif");
+		Body aegir = new Body(3, 3, 0, 0, 5, "Aegir.gif");
+
+		Body[] allBodys = {samh, rocinante, aegir};
+		samh.calcNetForceExertedByX(allBodys);
+		samh.calcNetForceExertedByY(allBodys);
+	}
+	*/
 }

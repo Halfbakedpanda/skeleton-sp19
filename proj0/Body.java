@@ -98,6 +98,11 @@ public class Body {
 	}
 
 
+	public void draw(){
+		StdDraw.picture(this.xxPos, this.yyPos , "images/" + this.imgFileName);
+		StdDraw.show();
+	}
+
 	/**
 	public static void main(String[] args){
 		Body samh = new Body(1, 0, 0, 0, 10, "samh.gif");

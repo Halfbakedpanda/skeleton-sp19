@@ -46,17 +46,19 @@ public class NBody{
 			StdDraw.show();
 			StdDraw.pause(2000);
 
-			for (Body planet:Input) {
+			for (Body planet : Input) {
 				planet.draw();
 			}
 
-			for (double time = 0; time < T; time = time + dt){
+			for (double time = 0; time <= T; time = time + dt){
 				double[] xForces = new double[Input.length];
 				double[] yForces = new double[Input.length];
+
 				for (int i = 0; i < Input.length; i++) {
 					xForces[i] = Input[i].calcNetForceExertedByX(Input);
 					yForces[i] = Input[i].calcNetForceExertedByY(Input);
 				}
+
 				for (int i = 0; i < Input.length; i++) {
 					Input[i].update(dt, xForces[i], yForces[i]);
 				}	
@@ -64,7 +66,7 @@ public class NBody{
 				StdDraw.enableDoubleBuffering();
 				StdDraw.picture(0, 0, imageToDraw);
 
-				for (Body planet:Input) {
+				for (Body planet : Input) {
 					planet.draw();
 				}
 				StdDraw.show();

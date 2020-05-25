@@ -36,7 +36,12 @@ public class Body {
 
 	/** Second Constructor */
 	public Body(Body b){
-		Body body = new Body(b);
+		xxPos = b.xxPos;
+		yyPos = b.yyPos;
+		xxVel = b.xxVel;
+		yyVel = b.yyVel;
+		mass = b.mass;
+		imgFileName = b.imgFileName;
 	}
 
 
@@ -45,6 +50,22 @@ public class Body {
 		double dy = this.yyPos - b.yyPos;
 		double r = Math.sqrt(dx * dx + dy * dy);
 		return r;
+	}
+
+	public double calcForceExertedByX(Body b) {
+		double dx = b.xxPos - this.xxPos;
+		double r = this.calcDistance(b);
+		double tf = this.calcForceExertedBy(b);
+		double xf = tf*dx/r;
+		return xf;
+	}
+
+	public double calcForceExertedByY(Body b) {
+		double dy = b.yyPos - this.yyPos;
+		double r = this.calcDistance(b);
+		double tf = this.calcForceExertedBy(b);
+		double yf = tf*dy/r;
+		return yf;
 	}
 
 
@@ -60,11 +81,7 @@ public class Body {
 			if (this.equals(planet)) {
 				continue;
 			} else{
-				double dx = planet.xxPos - this.xxPos;
-				double r = this.calcDistance(planet);
-				double tf = this.calcForceExertedBy(planet);
-				double xf = tf*dx/r;
-				res += xf;
+				res += this.calcForceExertedByX(planet);
 			}
 		}
 		return res;
@@ -77,11 +94,7 @@ public class Body {
 			if (this.equals(planet)) {
 				continue;
 			} else{
-				double dy = planet.yyPos - this.xxPos;
-				double r = this.calcDistance(planet);
-				double tf = this.calcForceExertedBy(planet);
-				double yf = tf*dy/r;
-				res += yf;
+				res += this.calcForceExertedByY(planet);
 			}
 		}
 		return res;
@@ -100,7 +113,6 @@ public class Body {
 
 	public void draw(){
 		StdDraw.picture(this.xxPos, this.yyPos , "images/" + this.imgFileName);
-		StdDraw.show();
 	}
 
 	/**
